@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Area do ADM | Tendel Bar e Lancheria</title>
+  <meta name="description" content="Painel administrativo da Tendel Bar e Lancheria." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-page">
+  <main class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <img class="logo" src="logo-tendel.png" alt="Logo da Tendel Bar e Lancheria" />
+        <div class="hero-copy">
+          <p class="eyebrow">Painel administrativo</p>
+          <h1>Area do ADM</h1>
+          <p class="hero-text">Controle pedidos, cardapio e horarios em um unico painel.</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-hero-actions admin-panel-links" id="adminPanelLinks" hidden>
+      <a class="owner-toggle admin-hero-link" href="balcao.html">Ir para o balcao</a>
+      <a class="owner-toggle admin-hero-link" href="cozinha.html">Ir para a cozinha</a>
+    </div>
+
+    <section class="modal-card admin-card admin-page-card" aria-labelledby="adminTitle">
+      <section id="adminLoginView">
+        <p class="modal-kicker">Area do ADM</p>
+        <h2 id="adminTitle">Login administrativo</h2>
+
+        <form id="adminLoginForm" class="owner-login">
+          <label class="field">
+            <span>Usuario</span>
+            <input type="text" id="adminUsername" autocomplete="username" required />
+          </label>
+
+          <label class="field">
+            <span>Senha</span>
+            <input type="password" id="adminPassword" autocomplete="current-password" required />
+          </label>
+
+          <button type="submit" class="submit-order">Entrar</button>
+          <a class="owner-toggle admin-login-back" href="index.html">Voltar ao cardapio</a>
+          <p class="owner-error" id="adminLoginError" hidden>Usuario ou senha invalidos.</p>
+        </form>
+      </section>
+
+      <section id="adminControlView" class="owner-panel" hidden>
+        <p class="modal-kicker">Area do ADM</p>
+        <h2>Atendimento</h2>
+        <div class="admin-tabs" role="tablist" aria-label="Menu administrativo">
+          <button
+            type="button"
+            id="adminTabSchedule"
+            class="admin-tab is-active"
+            data-panel="schedule"
+            role="tab"
+            aria-controls="adminSchedulePanel"
+            aria-selected="true"
+          >
+            Pedidos online
+          </button>
+          <button
+            type="button"
+            id="adminTabOrders"
+            class="admin-tab"
+            data-panel="orders"
+            role="tab"
+            aria-controls="adminOrdersPanel"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Pedidos
+          </button>
+          <button
+            type="button"
+            id="adminTabMenu"
+            class="admin-tab"
+            data-panel="menu"
+            role="tab"
+            aria-controls="adminMenuPanel"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Cardapio
+          </button>
+          <button
+            type="button"
+            id="adminCreateCategoryButton"
+            class="admin-tab"
+            data-panel="categories"
+            role="tab"
+            aria-controls="adminCategoriesPanel"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Menus
+          </button>
+        </div>
+
+        <div class="admin-tab-content">
+          <section
+            id="adminSchedulePanel"
+            class="admin-panel-section"
+            role="tabpanel"
+            aria-labelledby="adminTabSchedule"
+          >
+            <p class="owner-status" id="ordersControlStatus"></p>
+
+            <div class="admin-actions">
+              <button type="button" id="pauseOnlineOrders" class="owner-toggle">
+                1. Colocar pedidos online em espera
+              </button>
+              <button type="button" id="resumeOnlineOrders" class="owner-toggle">
+                2. Liberar pedidos online
+              </button>
+            </div>
+
+            <section class="admin-schedule" aria-label="Controle por horario">
+              <p class="admin-schedule-note">Horario automatico sempre ativo.</p>
+
+              <div class="admin-time-grid">
+                <label class="field">
+                  <span>Abrir pedidos as</span>
+                  <input type="time" id="ordersOpenTime" value="19:00" />
+                </label>
+
+                <label class="field">
+                  <span>Fechar pedidos as</span>
+                  <input type="time" id="ordersCloseTime" value="23:00" />
+                </label>
+              </div>
+
+              <button type="button" id="saveOrdersSchedule" class="owner-toggle">
+                3. Salvar horario programado
+              </button>
+
+              <p class="owner-status owner-status-soft" id="ordersScheduleStatus"></p>
+            </section>
+          </section>
+
+          <section
+            id="adminOrdersPanel"
+            class="admin-panel-section"
+            role="tabpanel"
+            aria-labelledby="adminTabOrders"
+            hidden
+          >
+            <h3 class="admin-menu-title">Pedidos recebidos</h3>
+            <p class="owner-status" id="adminOrdersStatus">Nenhum pedido recebido ainda.</p>
+            <div id="adminOrdersList" class="admin-orders-list" aria-label="Lista de pedidos"></div>
+          </section>
+
+          <section
+            id="adminCategoriesPanel"
+            class="admin-panel-section"
+            role="tabpanel"
+            aria-labelledby="adminCreateCategoryButton"
+            hidden
+          >
+            <h3 class="admin-menu-title">Menus e categorias para organizar o cardapio.</h3>
+
+            <form id="adminAddCategoryForm" class="admin-add-form">
+              <h3>Novo menu</h3>
+
+              <label class="field">
+                <span>Nome do menu</span>
+                <input type="text" id="adminNewCategoryName" placeholder="Ex.: Chopp" required />
+              </label>
+
+              <div class="admin-editor-actions">
+                <button type="submit" class="owner-toggle">Adicionar menu</button>
+              </div>
+            </form>
+
+            <div id="adminCategoryEditor" class="admin-menu-editor" aria-label="Editor de menus"></div>
+            <p class="owner-status" id="adminCategoryStatus">Crie uma categoria e depois use no cadastro de itens.</p>
+          </section>
+
+          <section
+            id="adminMenuPanel"
+            class="admin-panel-section"
+            role="tabpanel"
+            aria-labelledby="adminTabMenu"
+            hidden
+          >
+            <h3 class="admin-menu-title">Cardapio: criar, editar, remover e ocultar itens.</h3>
+
+            <form id="adminAddMenuForm" class="admin-add-form">
+              <h3>Novo item</h3>
+              <div class="admin-add-grid">
+                <label class="field">
+                  <span>Categoria</span>
+                  <select id="adminNewCategory" required></select>
+                </label>
+
+                <label class="field">
+                  <span>Preco</span>
+                  <input type="text" id="adminNewPrice" inputmode="decimal" placeholder="Ex.: 29,90" required />
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Nome do item</span>
+                <input type="text" id="adminNewTitle" placeholder="Ex.: X-Salada Especial" required />
+              </label>
+
+              <label class="field">
+                <span>Ingredientes</span>
+                <textarea id="adminNewIngredients" rows="3" placeholder="Detalhes completos dos ingredientes." required></textarea>
+              </label>
+
+              <div class="admin-editor-actions">
+                <button type="submit" class="owner-toggle">Adicionar item</button>
+              </div>
+            </form>
+
+            <div id="adminMenuEditor" class="admin-menu-editor" aria-label="Editor do cardapio"></div>
+            <p class="owner-status" id="adminMenuStatus">Selecione um item e salve as alteracoes.</p>
+          </section>
+        </div>
+
+        <p class="owner-status owner-status-soft" id="adminSaveAllStatus" hidden></p>
+        <button type="button" id="adminSaveAll" class="submit-order">Salvar tudo</button>
+        <a class="owner-toggle admin-login-back" href="index.html">Voltar para a pagina do cliente</a>
+        <button type="button" id="adminLogout" class="owner-logout">Sair</button>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-overlay admin-overlay" id="adminCategoryRemoveModal" aria-hidden="true">
+    <div class="modal-card admin-confirm-card" role="dialog" aria-modal="true" aria-labelledby="adminCategoryRemoveTitle">
+      <button type="button" class="modal-close" id="closeAdminCategoryRemoveModal" aria-label="Fechar">x</button>
+      <p class="modal-kicker">Seguranca</p>
+      <h2 id="adminCategoryRemoveTitle">Confirmar remocao</h2>
+      <p class="owner-status owner-status-soft" id="adminCategoryRemoveMessage"></p>
+
+      <form id="adminCategoryRemoveForm" class="owner-login">
+        <label class="field">
+          <span>Senha do ADM</span>
+          <input type="password" id="adminCategoryRemovePassword" autocomplete="current-password" required />
+        </label>
+
+        <div class="admin-editor-actions">
+          <button type="button" id="cancelAdminCategoryRemove" class="owner-toggle">Cancelar</button>
+          <button type="submit" class="submit-order">Confirmar remocao</button>
+        </div>
+
+        <p class="owner-error" id="adminCategoryRemoveError" hidden>Senha incorreta.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay admin-overlay" id="adminOrderRemoveModal" aria-hidden="true">
+    <div class="modal-card admin-confirm-card" role="dialog" aria-modal="true" aria-labelledby="adminOrderRemoveTitle">
+      <button type="button" class="modal-close" id="closeAdminOrderRemoveModal" aria-label="Fechar">x</button>
+      <p class="modal-kicker">Aviso</p>
+      <h2 id="adminOrderRemoveTitle">Arquivar pedido pronto</h2>
+      <p class="owner-status owner-status-soft" id="adminOrderRemoveMessage"></p>
+
+      <form id="adminOrderRemoveForm" class="owner-login">
+        <div class="admin-editor-actions">
+          <button type="button" id="cancelAdminOrderRemove" class="owner-toggle">Cancelar</button>
+          <button type="submit" class="submit-order">Confirmar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cozinha | Tendel Bar e Lancheria</title>
+  <meta
+    name="description"
+    content="Painel da cozinha para receber e acompanhar pedidos em tempo real."
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="kitchen-page">
+  <main class="kitchen-shell">
+    <header class="kitchen-hero">
+      <div class="kitchen-hero-copy">
+        <p class="kitchen-kicker">Painel da cozinha</p>
+        <h1>Pedidos organizados para a producao</h1>
+        <p class="kitchen-lead">
+          Layout pensado para tablet e tela fixa na cozinha, com foco em leitura rapida, fila clara e atualizacao
+          automatica entre abas.
+        </p>
+      </div>
+
+      <div class="kitchen-hero-actions">
+        <a class="kitchen-back-link" href="index.html">Ir para o cardapio</a>
+        <a class="kitchen-back-link" href="balcao.html">Ir para o balcao</a>
+        <a class="kitchen-back-link" href="admin.html">Ir para o ADM</a>
+      </div>
+
+      <aside class="kitchen-hero-panel">
+        <img class="kitchen-hero-logo" src="logo-tendel.png" alt="Logo da Tendel Bar e Lancheria" />
+        <div class="kitchen-live-card">
+          <span class="kitchen-live-dot" aria-hidden="true"></span>
+          <div>
+            <strong id="kitchenSyncStatus">Sincronizacao automatica ativa</strong>
+            <p id="kitchenSourceStatus">Integracao com pedidos online e do balcao.</p>
+          </div>
+        </div>
+        <div class="kitchen-live-meta">
+          <p>Ultima leitura</p>
+          <strong id="kitchenLastSyncLabel">Agora mesmo</strong>
+        </div>
+      </aside>
+    </header>
+
+    <section class="kitchen-metrics" aria-label="Indicadores da cozinha">
+      <article class="kitchen-metric">
+        <span class="kitchen-metric-label">Na fila</span>
+        <strong id="pendingMetric">0</strong>
+      </article>
+      <article class="kitchen-metric">
+        <span class="kitchen-metric-label">Em preparo</span>
+        <strong id="preparingMetric">0</strong>
+      </article>
+      <article class="kitchen-metric">
+        <span class="kitchen-metric-label">Prontos</span>
+        <strong id="readyMetric">0</strong>
+      </article>
+      <article class="kitchen-metric">
+        <span class="kitchen-metric-label">Pedidos ativos</span>
+        <strong id="totalMetric">0</strong>
+      </article>
+    </section>
+
+    <section class="kitchen-toolbar" aria-label="Controles do painel">
+      <div class="kitchen-toolbar-copy">
+        <p class="kitchen-toolbar-title">Fluxo operacional da cozinha</p>
+        <p class="kitchen-toolbar-text">
+          Os pedidos entram em "Na fila", seguem para "Em preparo" e depois para "Prontos".
+        </p>
+      </div>
+      <div class="kitchen-toolbar-actions">
+        <button type="button" id="refreshKitchenOrders" class="kitchen-toolbar-button">Atualizar agora</button>
+        <button type="button" id="archiveReadyOrders" class="kitchen-toolbar-button kitchen-toolbar-button-soft">
+          Limpar prontos
+        </button>
+      </div>
+    </section>
+
+    <section class="kitchen-board" aria-label="Quadro de pedidos">
+      <section class="kitchen-column">
+        <header class="kitchen-column-head">
+          <div>
+            <p class="kitchen-column-kicker">Entrada</p>
+            <h2>Na fila</h2>
+          </div>
+          <span id="pendingCountBadge" class="kitchen-count-badge">0</span>
+        </header>
+        <div id="pendingOrdersList" class="kitchen-order-list"></div>
+      </section>
+
+      <section class="kitchen-column">
+        <header class="kitchen-column-head">
+          <div>
+            <p class="kitchen-column-kicker">Producao</p>
+            <h2>Em preparo</h2>
+          </div>
+          <span id="preparingCountBadge" class="kitchen-count-badge">0</span>
+        </header>
+        <div id="preparingOrdersList" class="kitchen-order-list"></div>
+      </section>
+
+      <section class="kitchen-column">
+        <header class="kitchen-column-head">
+          <div>
+            <p class="kitchen-column-kicker">Finalizacao</p>
+            <h2>Prontos</h2>
+          </div>
+          <span id="readyCountBadge" class="kitchen-count-badge">0</span>
+        </header>
+        <div id="readyOrdersList" class="kitchen-order-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="kitchenToast" class="kitchen-toast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module" src="assets/js/cozinha.js"></script>
+</body>
+</html>

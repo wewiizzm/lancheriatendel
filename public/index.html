@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardapio Online | Tendel Bar e Lancheria</title>
+  <meta name="description" content="Cardapio online da Tendel Bar e Lancheria." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <img class="logo" src="logo-tendel.png" alt="Logo da Tendel Bar e Lancheria" />
+        <div class="hero-copy">
+          <p class="eyebrow">Tendel Bar e Lancheria</p>
+          <h1>Cardapio Online</h1>
+          <p class="hero-text">Escolha sua categoria favorita e faca seu pedido.</p>
+        </div>
+      </div>
+
+      <div class="badges" hidden>
+        <span class="badge" id="ordersScheduleBadge"></span>
+      </div>
+    </header>
+
+    <p class="orders-paused-banner" id="ordersPausedBanner" role="status" aria-live="polite" hidden>
+      No momento os pedidos online estao indisponiveis. Tente novamente em breve.
+    </p>
+    <p class="orders-online-banner" id="ordersOnlineBanner" role="status" aria-live="polite" hidden>
+      Pedidos online liberados agora. Escolha seus itens.
+    </p>
+
+    <nav class="controls" id="filters" aria-label="Filtros do cardapio"></nav>
+
+    <section class="menu-grid" id="menu" aria-label="Itens do cardapio"></section>
+
+    <footer class="footer">
+      <p>Desenvolvido por Wewiizzm</p>
+      <p>Sao Lourenco do Sul | Rio Grande do Sul | Brasil</p>
+    </footer>
+  </main>
+
+  <a class="owner-access" href="admin.html">Area do ADM</a>
+
+  <div class="modal-overlay" id="orderModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" id="closeModal" aria-label="Fechar">x</button>
+      <p class="modal-kicker">Montar pedido</p>
+      <h2 id="modalTitle">Seu pedido</h2>
+      <p class="modal-price" id="modalPrice">Adicione um ou mais itens.</p>
+
+      <section class="modal-builder" aria-label="Adicionar mais itens">
+        <h3>Adicionar outro item</h3>
+        <div class="builder-row">
+          <select id="itemSelect" aria-label="Selecionar item"></select>
+          <input type="number" id="itemQuantity" min="1" value="1" aria-label="Quantidade do item" />
+          <button type="button" id="addItemButton" class="add-item">Adicionar</button>
+        </div>
+      </section>
+
+      <section class="modal-cart" aria-label="Itens do pedido">
+        <h3>Itens adicionados</h3>
+        <div id="cartItems" class="cart-items"></div>
+        <p id="cartEmpty" class="cart-empty">Nenhum item no pedido.</p>
+      </section>
+
+      <form id="orderForm" class="order-form">
+        <label class="field">
+          <span>Hora de retirada</span>
+          <input type="time" id="pickupTime" required />
+        </label>
+
+        <label class="field">
+          <span>Observacao geral (opcional)</span>
+          <textarea id="orderNotes" rows="3" placeholder="Ex.: retirar na frente da loja"></textarea>
+        </label>
+
+        <label class="field">
+          <span>Nome completo</span>
+          <input
+            type="text"
+            id="customerName"
+            autocomplete="name"
+            placeholder="Informe seu nome completo"
+            required
+          />
+        </label>
+
+        <p class="order-total" id="orderTotal">Valor total: R$ 0,00</p>
+        <p class="owner-status owner-status-soft" id="orderFormStatus" hidden></p>
+        <button type="submit" class="submit-order" id="submitOnlineOrder">Enviar pedido no WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/index.js"></script>
+</body>
+</html>

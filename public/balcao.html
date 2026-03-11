@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balcao | Tendel Bar e Lancheria</title>
+  <meta
+    name="description"
+    content="Tela de balcao para lancamento manual de pedidos com visual profissional e otimizado para tablet."
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="counter-page">
+  <main class="counter-shell">
+    <section class="counter-hero">
+      <div class="counter-hero-copy">
+        <p class="counter-kicker">Operacao de balcao</p>
+        <h1>Lancamento manual de pedidos para cozinha</h1>
+        <p class="counter-lead">
+          Estrutura pensada para uso rapido no atendimento: campos grandes, navegacao simples e conferencia visual
+          antes do envio.
+        </p>
+      </div>
+
+      <div class="counter-hero-actions">
+        <a class="counter-back-link" href="index.html">Voltar ao cardapio</a>
+        <a class="counter-back-link" href="cozinha.html">Ir para cozinha</a>
+        <a class="counter-back-link" href="admin.html">Ir para o ADM</a>
+      </div>
+
+      <div class="counter-hero-panel">
+        <img class="counter-hero-logo" src="logo-tendel.png" alt="Logo da Tendel Bar e Lancheria" />
+        <div class="counter-hero-stats">
+          <article class="counter-stat">
+            <span class="counter-stat-label">Foco</span>
+            <strong>Tablet e toque</strong>
+          </article>
+          <article class="counter-stat">
+            <span class="counter-stat-label">Fluxo</span>
+            <strong>Balcao para cozinha</strong>
+          </article>
+          <article class="counter-stat">
+            <span class="counter-stat-label">Leitura</span>
+            <strong>Resumo imediato</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="counter-layout" aria-label="Tela de lancamento de pedidos">
+      <form id="counterOrderForm" class="counter-card counter-form">
+        <header class="counter-section-header">
+          <div>
+            <p class="counter-section-kicker">Novo pedido</p>
+            <h2>Dados do atendimento</h2>
+          </div>
+          <p class="counter-section-copy">Preencha os dados, revise no resumo e envie com confirmacao final.</p>
+        </header>
+
+        <div class="counter-grid counter-grid-two">
+          <label class="field counter-field" id="customerNameFieldWrap">
+            <span>Nome do cliente</span>
+            <input
+              type="text"
+              id="counterCustomerName"
+              name="customerName"
+              autocomplete="name"
+              placeholder="Ex.: Joao da Silva"
+              required
+            />
+          </label>
+
+          <label class="field counter-field" id="customerPhoneFieldWrap" hidden>
+            <span>Telefone</span>
+            <input
+              type="tel"
+              id="counterCustomerPhone"
+              name="customerPhone"
+              inputmode="tel"
+              autocomplete="tel"
+              placeholder="(53) 99999-9999"
+            />
+          </label>
+        </div>
+
+        <p id="counterServiceIdentityNote" class="counter-service-identity-note" hidden>
+          Para atendimento em mesa, a identificacao do pedido sera feita pela mesa informada abaixo.
+        </p>
+
+        <section class="counter-service-panel" aria-labelledby="serviceModeTitle">
+          <div class="counter-service-header">
+            <div>
+              <p class="counter-section-kicker">Atendimento</p>
+              <h3 id="serviceModeTitle">Retirada ou mesa</h3>
+            </div>
+            <p class="counter-service-copy">Defina como o pedido sera identificado pela equipe.</p>
+          </div>
+
+          <div class="counter-service-switch" role="radiogroup" aria-label="Tipo de atendimento">
+            <label class="counter-switch-option">
+              <input type="radio" name="serviceMode" value="pickup" checked />
+              <span>Retirada</span>
+            </label>
+
+            <label class="counter-switch-option">
+              <input type="radio" name="serviceMode" value="table" />
+              <span>Mesa</span>
+            </label>
+          </div>
+
+          <label class="field counter-field counter-table-field" id="tableFieldWrap" hidden>
+            <span>Numero da mesa</span>
+            <input
+              type="text"
+              id="counterTableReference"
+              name="tableReference"
+              placeholder="Ex.: 04"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              enterkeyhint="done"
+            />
+          </label>
+        </section>
+
+        <section class="counter-items-panel" aria-labelledby="counterItemsTitle">
+          <div class="counter-items-head">
+            <div>
+              <p class="counter-section-kicker">Itens do pedido</p>
+              <h3 id="counterItemsTitle">Monte o pedido com rapidez</h3>
+            </div>
+            <button type="button" id="addCounterItem" class="counter-secondary-button">Adicionar item</button>
+          </div>
+
+          <p id="counterCatalogHint" class="counter-catalog-hint">
+            Selecione os produtos diretamente do cardapio ativo para evitar digitacao manual.
+          </p>
+          <div id="counterItemsList" class="counter-items-list" aria-live="polite"></div>
+        </section>
+
+        <label class="field counter-field">
+          <span>Observacoes gerais</span>
+          <textarea
+            id="counterGeneralNotes"
+            name="generalNotes"
+            rows="4"
+            placeholder="Ex.: pedido com prioridade, cliente aguardando no balcao..."
+          ></textarea>
+        </label>
+
+        <div class="counter-form-footer">
+          <div class="counter-footer-meta">
+            <p class="counter-footer-label">Itens lancados</p>
+            <strong id="counterItemsCount">0 item</strong>
+          </div>
+
+          <button type="submit" id="reviewCounterOrderButton" class="counter-submit-button">Conferir antes de enviar</button>
+        </div>
+      </form>
+
+      <aside id="counterSummaryCard" class="counter-card counter-summary" aria-label="Resumo do pedido">
+        <header class="counter-section-header">
+          <div>
+            <p class="counter-section-kicker">Resumo operacional</p>
+            <h2>Conferencia antes do envio</h2>
+          </div>
+          <p class="counter-section-copy">A visualizacao lateral ajuda a evitar erros no balcao.</p>
+        </header>
+
+        <div class="counter-summary-block">
+          <span class="counter-summary-label">Cliente</span>
+          <strong id="summaryCustomerName">Aguardando preenchimento</strong>
+          <p id="summaryCustomerPhone" class="counter-summary-copy" hidden>Telefone nao informado</p>
+        </div>
+
+        <div class="counter-summary-block">
+          <span class="counter-summary-label">Atendimento</span>
+          <strong id="summaryServiceMode">Retirada</strong>
+          <p id="summaryTableReference" class="counter-summary-copy">Sem mesa vinculada</p>
+        </div>
+
+        <div class="counter-summary-block">
+          <div class="counter-summary-heading">
+            <span class="counter-summary-label">Itens</span>
+            <strong id="summaryItemsBadge" class="counter-inline-badge">0</strong>
+          </div>
+          <div id="counterSummaryList" class="counter-summary-list">
+            <p class="counter-empty-state">Adicione os itens para visualizar o pedido.</p>
+          </div>
+        </div>
+
+        <div class="counter-summary-block">
+          <span class="counter-summary-label">Observacoes gerais</span>
+          <p id="summaryGeneralNotes" class="counter-summary-copy">Nenhuma observacao informada.</p>
+        </div>
+
+        <div id="counterConfirmationPanel" class="counter-confirmation-panel" hidden>
+          <p id="counterConfirmationStatus" class="counter-confirmation-status">
+            Revise os dados acima antes de confirmar o envio definitivo para a cozinha.
+          </p>
+          <button type="button" id="confirmCounterOrderButton" class="counter-confirm-button" disabled>
+            Confirmar envio para cozinha
+          </button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <template id="counterItemTemplate">
+    <article class="counter-item-card">
+      <div class="counter-item-top">
+        <div>
+          <p class="counter-item-index">Item</p>
+          <h4 class="counter-item-title">Novo item</h4>
+        </div>
+        <button type="button" class="counter-remove-item" data-action="remove-item" aria-label="Remover item">
+          Remover
+        </button>
+      </div>
+
+      <div class="counter-item-grid">
+        <label class="field counter-field">
+          <span>Item</span>
+          <select class="counter-item-select" name="itemId" required></select>
+        </label>
+
+        <label class="field counter-field">
+          <span>Quantidade</span>
+          <div class="counter-qty-control">
+            <button type="button" class="counter-qty-button" data-action="decrease-qty" aria-label="Diminuir">
+              -
+            </button>
+            <input
+              type="number"
+              class="counter-item-quantity"
+              name="itemQuantity"
+              min="1"
+              step="1"
+              value="1"
+              inputmode="numeric"
+              required
+            />
+            <button type="button" class="counter-qty-button" data-action="increase-qty" aria-label="Aumentar">
+              +
+            </button>
+          </div>
+        </label>
+      </div>
+
+      <div class="counter-item-details">
+        <p class="counter-item-meta">Selecione um item do cardapio.</p>
+        <p class="counter-item-ingredients">Os detalhes do item aparecem aqui apos a selecao.</p>
+      </div>
+
+      <label class="field counter-field">
+        <span>Observacoes do item</span>
+        <textarea
+          class="counter-item-notes"
+          name="itemNotes"
+          rows="2"
+          placeholder="Ex.: sem milho, ponto da carne, trocar pao..."
+        ></textarea>
+      </label>
+    </article>
+  </template>
+
+  <div id="counterToast" class="counter-toast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module" src="assets/js/balcao.js"></script>
+</body>
+</html>
